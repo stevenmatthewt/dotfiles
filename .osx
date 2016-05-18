@@ -40,7 +40,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
 	"/System/Library/CoreServices/Menu Extras/Clock.menu"
 
-# Set highlight color to green
+# Set highlight color to something
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.568600 0.976500"
 
 # Set sidebar icon size to medium
