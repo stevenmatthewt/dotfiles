@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+# Install brew automatically...
+# If we're on a Mac, let's install and setup homebrew.
+# Check for Homebrew
+if test ! $(which brew)
+then
+  echo "  Installing Homebrew for you."
+
+  # Install the correct homebrew for each OS type
+  if test "$(uname)" = "Darwin"
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  elif test "$(expr substr $(uname -s) 1 5)" = "Linux"
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+  fi
+
+fi
+
 # Install command-line tools using Homebrew.
 
 # Make sure we’re using the latest Homebrew.
@@ -27,10 +45,13 @@ brew tap homebrew/versions
 brew install bash-completion2
 
 # Switch to using brew-installed bash as default shell
-if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
-  echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
-  chsh -s /usr/local/bin/bash;
-fi;
+# if ! fgrep -q '/usr/local/bin/bash' /etc/shells; then
+#   echo '/usr/local/bin/bash' | sudo tee -a /etc/shells;
+#   chsh -s /usr/local/bin/bash;
+# fi;
+
+# Switch to using zsh (oh-my-zsh) as default shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Install `wget` with IRI support.
 brew install wget --with-iri
@@ -44,9 +65,9 @@ brew install wget --with-iri
 # Install more recent versions of some OS X tools.
 brew install vim --override-system-vi
 brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
-brew install homebrew/php/php56 --with-gmp
+# brew install homebrew/dupes/openssh
+# brew install homebrew/dupes/screen
+# brew install homebrew/php/php56 --with-gmp
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -80,11 +101,21 @@ brew install zopfli
 brew tap caskroom/versions
 
 brew install docker
-brew cask install sublime-text-3
 brew install mysql
-brew cask install sequel-pro
 brew install tmux
 brew install gnupg gnupg2
+
+brew install brew-cask
+
+brew cask install sequel-pro
+brew cask install sublime-text-3
+brew cask install hipchat
+brew cask install iterm2
+brew cask install google-chrome
+brew cask install virtualbox 
+
+gem install tmuxinator
+
 
 
 # Remove outdated versions from the cellar.
