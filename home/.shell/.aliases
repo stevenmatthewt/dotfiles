@@ -1,5 +1,4 @@
 # Easier navigation: .., ..., ...., ....., ~ and -
-echo "testseteststre"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
