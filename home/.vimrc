@@ -1,3 +1,5 @@
+vnoremap . :norm.<CR>
+
 " Use the Solarized Dark theme
 set background=dark
 colorscheme solarized
@@ -11,6 +13,8 @@ set clipboard=unnamed
 set wildmenu
 " Allow cursor keys in insert mode
 set esckeys
+" indentation
+filetype plugin indent on
 " Allow backspace in insert mode
 set backspace=indent,eol,start
 " Optimize for fast terminal connections
@@ -24,6 +28,8 @@ let mapleader=","
 " Don’t add empty newlines at the end of files
 set binary
 set noeol
+" jk for exit insert mode
+inoremap jk <ESC>
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps

@@ -85,4 +85,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Source .profile for other stuff
-[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+[[ -e ~/.shell/.zsh_profile ]] && source ~/.shell/.zsh_profile
