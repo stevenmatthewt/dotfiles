@@ -1,0 +1,127 @@
+
+# !/bin/bash
+
+
+# Takes one argument, which is either:
+#
+# 1. target server hostname, ip address, or ssh alias
+
+# (any valid arguments to the ssh command)
+# ~/.ssh/config defines TSR servers in the following form, where datacenter is one of
+# us, eu, ap, dev:
+# w54-<datacenter> (PHP 5.4 workers)
+# w56-<datacenter> (PHP 5.6 workers)
+# h56-<datacenter> (PHP 5.4 https)
+# h54-<datacenter> (PHP 5.6 https)
+# coreos-<datacenter> (CoreOS cluster nodes)
+#
+# OR
+#
+# 2. target server group, which is a predefined collection of servers: coreos, w54, w56, or batch
+#
+# An appropriately titled tmux window is then
+# created with (an) ssh connection(s) to the specified
+# server(s), each in its own tmux pane
+new_server_window () {
+    commands=()
+    case "$1" in
+    "coreos")
+		commands[0]="ssh coreos-us"
+	commands[1]="ssh coreos-eu"
+	commands[2]="ssh coreos-ap"
+	commands[3]="ssh coreos-dev"
+	;;
+    "coreos-us")
+		commands[0]="ssh coreos-us"
+	commands[1]="ssh coreos-us-2"
+	commands[2]="ssh coreos-us-3"
+	commands[3]="ssh coreos-us-4"
+	commands[4]="ssh coreos-us-5"
+	commands[5]="ssh coreos-us-6"
+	commands[6]="ssh coreos-us-7"
+	;;
+    "coreos-eu")
+		commands[0]="ssh coreos-eu"
+	commands[1]="ssh coreos-eu-2"
+	commands[2]="ssh coreos-eu-3"
+	commands[3]="ssh coreos-eu-4"
+	commands[4]="ssh coreos-eu-5"
+	commands[5]="ssh coreos-eu-6"
+	commands[6]="ssh coreos-eu-7"
+	;;
+    "coreos-dev")
+		commands[0]="ssh coreos-dev"
+	commands[1]="ssh coreos-dev-2"
+	commands[2]="ssh coreos-dev-3"
+	commands[3]="ssh coreos-dev-4"
+	;;
+    "coreos-ap")
+		commands[0]="ssh coreos-ap"
+	commands[1]="ssh coreos-ap-2"
+	commands[2]="ssh coreos-ap-3"
+	commands[3]="ssh coreos-ap-4"
+	;;
+    "w54")
+		commands[0]="ssh w54-us"
+	commands[1]="ssh w54-eu"
+	commands[2]="ssh w54-ap"
+	commands[3]="ssh w54-dev"
+	;;
+    "w56")
+		commands[0]="ssh w56-us"
+		commands[1]="ssh w56-eu"
+		commands[2]="ssh w56-ap"
+	commands[3]="ssh w56-dev"
+	;;
+    "w54-all")
+		commands[0]="ssh w54-us"
+	commands[1]="ssh w54-us-2"
+	commands[2]="ssh w54-eu"
+	commands[3]="ssh w54-eu-2"
+	commands[4]="ssh w54-dev"
+	commands[5]="ssh w54-ap"
+	;;
+    *)
+		echo "That template is not known."
+		exit 0
+		;;
+	esac
+	tmux new-window -n $1
+	run_commands_in_panes $1 "${commands[@]}"
+}
+
+run_commands_in_panes (){
+
+	# run first command in target window
+	tmux send-keys -t "$1" "$2" 'C-m'
+	# run second command in new pane below first
+	if [ -n "$3" ]; then
+		tmux split-window -t "$1" "$3"
+	fi
+	# run third command in new pane right of first
+	if [ -n "$4" ]; then
+		tmux split-window -h -t "$1.1" "$4"
+	fi
+	# run fourth command in new pane right of second
+	if [ -n "$5" ]; then
+		tmux split-window -h -t "$1.2" "$5"
+	fi
+	# run fifth command in new pane that splits the top-left pane
+	if [ -n "$6" ]; then
+		tmux split-window -t "$1.1" "$6"
+	fi
+	# run sixth command in new pane that splits the top-right pane
+	if [ -n "$7" ]; then
+		tmux split-window -t "$1.3" "$7"
+	fi
+	# run seventh command in new pane that splits the bottom-left pane
+	if [ -n "$8" ]; then
+		tmux split-window -t "$1.2" "$8"
+	fi
+	# run command in new pane that splits the bottom-right pane
+	if [ -n "$9" ]; then
+		tmux split-window -t "$1.4" "$9"
+	fi
+}
+
+new_server_window $1
