@@ -1,0 +1,21 @@
+// Settings:
+
+{
+    // Go
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    // "go.lintTool": "gometalinter", // slow
+
+    // Workbench
+    "workbench.colorTheme": "Seti Monokai",
+    "workbench.iconTheme": "vs-seti",
+
+    // Editor
+    "editor.renderWhitespace": "boundary",
+
+    // Explorer
+    "explorer.openEditors.visible": 0
+}
+
+// Extensions
+SmukkeKim.theme-setimonokai-0.0.1
+lukehoban.Go-0.6.55
