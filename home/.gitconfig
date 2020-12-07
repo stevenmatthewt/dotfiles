@@ -125,7 +125,6 @@
 
 [url "git@github.com:"]
 
-	insteadOf = https://github.com/
 	pushInsteadOf = "github:"
 	pushInsteadOf = "git://github.com/"
 
@@ -143,7 +142,7 @@
 
 	insteadOf = "gist:"
 [user]
-	email = Steven.Thomas@careerbuilder.com
+	email = FIXME
 	name = Steven Thomas
 [branch]
 	autosetuprebase = always

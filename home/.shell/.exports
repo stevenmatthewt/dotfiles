@@ -28,3 +28,6 @@ export LESS_TERMCAP_md="${yellow}";
 
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
+
+# Use login keychain for aws-vault
+export AWS_VAULT_KEYCHAIN_NAME="login"

@@ -2,18 +2,37 @@
 
 {
     // Go
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    // "go.lintTool": "gometalinter", // slow
-
+    "go.useLanguageServer": true,
+    "go.languageServerExperimentalFeatures": {
+            "diagnostics": true // for build and vet errors as you type
+    },
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "gopls": {
+        "usePlaceholders": true // add parameter placeholders when completing a function
+    },
+    // Files
+    "files.eol": "\n", // formatting only supports LF line endings
     // Workbench
     "workbench.colorTheme": "Seti Monokai",
     "workbench.iconTheme": "vs-seti",
-
     // Editor
     "editor.renderWhitespace": "boundary",
-
+    "editor.multiCursorModifier": "ctrlCmd",
     // Explorer
-    "explorer.openEditors.visible": 0
+    "explorer.openEditors.visible": 0,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "window.zoomLevel": 1,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
 
 // Extensions
